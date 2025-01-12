@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <include file="appapi@head"/>
+    <title>{:lang('幸运大转盘规则')}</title>
+	<link type="text/css" rel="stylesheet" href="__STATIC__/appapi/css/game.css?t=15"/> 
+    
+</head>
+<body class="xydzp">
+    <div class="content">
+    	<p class="top"><img src="__STATIC__/appapi/images/game/{:lang('top')}.png" /></p>
+    	<p class="title"></p>
+    	<div class="list">
+    		<ul>
+    			<li>
+    				<p class="list_title">{:lang('幸运大转盘是什么?')}</p>
+    				<p>{:lang('玩家在幸运大转盘中消耗')}{$name_coin}，{:lang('可随机产出不同价值的礼物，获得的礼物将会放置到背包中。')}</p>
+    			</li>
+    			<li>
+    				<p class="list_title">{:lang('如何参与幸运大转盘?')}</p>
+    				<p>{:lang('每次参与幸运大转盘活动的需要消耗相应的钻石数，参与将会获得随机礼物，获得的礼物发放至背包中。',['coin'=>$name_coin])}</p>
+    			</li>
+    			<li>
+    				<p class="list_title">{:lang('幸运大转盘中奖概率')}</p>
+    				<table class="list_con">
+				
+						<th>{:lang('奖品')}</th>
+						<th>{:lang('价值')}({$name_coin})</th>
+						<th>{:lang('概率')}</th>
+						<foreach name="list" id="vo">
+							<tr>
+								<td>{$vo['gift_info']['giftname']}</td>
+								<td class="coin">{$vo['total']}</td>
+								<td>{$vo['show_win_prob']}%</td>
+							</tr>
+						</foreach>
+					</table>
+    			</li>
+    			<li>
+    				<p class="list_title">{:lang('手气榜?')}</p>
+    				<p>1.{:lang('根据所有用户在幸运大转盘内获得的礼物总价值排名。')}</p>
+    				<p>2.{:lang('榜单数据实时更新。')}</p>
+    			</li>
+    		</ul>
+    	</div>
+    	<div class="bottom">
+    		<img src="__STATIC__/appapi/images/game/bottom.png" />
+    	</div>
+    </div>
+	
+	
+	<include file="appapi@footer"/>
+	<script type="text/javascript">
+		$(function(){
+			//var height = $(window).height();
+			var height = window.screen.height;
+
+			$(".xydzp").height(height);
+			$(".content").height(height);
+		});
+	</script>
+</body>
+</html>

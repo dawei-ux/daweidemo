@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <include file="appapi@head"/>
+	<link type="text/css" rel="stylesheet" href="__STATIC__/appapi/css/family.css?t=1561712924"/>
+	<style type="text/css">
+		.attended{
+			background: url("__STATIC__/appapi/images/family/family_top_bg.jpg") no-repeat left top;
+		}
+		.user-list-fillet{
+			background: #FFF;
+		}
+		.user-list{
+			width: 100%;
+			margin-top: -0.1rem;
+			border-radius: 0;
+		}
+		.user-list ul li{
+			padding: 15px 0 15px 75px;
+			border-bottom: 0;
+		}
+		.user-list-fillet ul li .thumb{
+			width: 60px;
+			height: 60px;
+			left: 5px;
+		}
+		.attended .user-list ul li .action{
+			top: 34px;
+		}
+	</style>
+    <title>{:lang("我的家族")}</title>
+</head>
+<body class="attended">
+	<!-- <div class="search">
+		<div class="search_input">
+			<input id="key" placeholder="搜索签约家族ID/名称">
+			<span class="search_clear"></span>
+		</div>
+		<div class="search_btn">
+			搜索
+		</div>
+	</div> 
+	<div class="line10"></div>
+	-->
+	<div class="{:lang('attended_top')}">
+		
+	</div>
+	<div class="list_title">
+		{:lang("家族推荐")}
+		<div class="reload"></div>
+	</div>
+	<div class="user-list user-list-fillet">
+		<ul>
+			<volist name='list' id='vo' key='k'>
+			<li>
+				<a href="/appapi/Family/detail?familyid={$vo['id']}&uid={$uid}&token={$token}&language={$language_type}">
+					<div class="thumb">
+						<img src="{$vo['badge']}">
+					</div>
+					<div class="info">
+						<p class="info-title">{$vo['name']}</p>
+						<p class="info-des2 ellipsis">{$vo['briefing']}</p>
+						<p class="info-des2"><span>{:lang("成员")}：{$vo['count']}{:lang("人")}</span><span>ID：{$vo['id']}</span></p>
+					</div>
+					<div class="action">
+						<span class="ok" data-familyid="{$vo['id']}">{:lang("加入")}</span>
+					</div>
+				</a>
+			</li>
+			</volist>
+		</ul>
+	</div>
+    
+	<include file="appapi@footer"/>
+	<script src="__STATIC__/appapi/js/family.js?t=1617867680"></script>
+	<script type="text/javascript">
+
+		var page=2; 
+        var isscroll=true; 
+
+        function getlistmore(){
+			$.ajax({
+				url:'/appapi/Family/indexmore',
+				data:{'page':page,'uid':uid,'token':token,'language':language_type},
+				type:'get',
+				dataType:'json',
+				success:function(data){
+					if(data.nums>0){
+                        var nums=data.nums;
+                        var list=data.data;
+                        var html='';
+                        for(var i=0;i<nums;i++){
+                            var v=list[i];
+                            html+='<li>\
+								<a href="/appapi/Family/detail?familyid='+v.id+'&uid='+uid+'&token='+token+'&language='+language_type+'">\
+									<div class="thumb">\
+										<img src="'+v.badge+'">\
+									</div>\
+									<div class="info">\
+										<p class="info-title">'+v.name+'</p>\
+										<p class="info-des2 ellipsis">'+v.briefing+'</p>\
+										<p class="info-des2"><span>'+LangT('成员')+'：'+v.count+LangT('人')+'</span><span>ID：'+v.uid+'</span></p>\
+									</div>\
+									<div class="action">\
+										<span class="ok" data-familyid="'+v.id+'">'+LangT('加入')+'</span>\
+									</div>\
+								</a>\
+							</li>';
+                        }
+						
+						$(".user-list ul").append(html);
+					}
+					
+					if(data.isscroll==1){
+						page++;
+						isscroll=true;
+					}
+				}
+			})
+		}
+
+		$(function(){
+	        
+	        var scroll_list=$(".user-list");
+
+			$(window).scroll(function(){
+	            var srollPos = $(document).scrollTop();    //滚动条距顶部距离(页面超出窗口的高度)
+
+	            var totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+
+	            if((scroll_list.height()-totalheight) <=50 && isscroll){
+	                isscroll=false;
+	                getlistmore()
+	            }
+
+	            
+			});
+
+	        
+
+
+		})
+	</script>	
+</body>
+</html>

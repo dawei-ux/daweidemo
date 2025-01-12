@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <include file="appapi@head"/>
+    <title>{:lang('星球探宝规则')}</title>
+	<link type="text/css" rel="stylesheet" href="__STATIC__/appapi/css/game.css?t=10"/> 
+    
+</head>
+<body class="xqtb">
+    <div class="content">
+    	<p class="top_img">
+    		<img src="__STATIC__/appapi/images/game/{:lang('title')}.png">
+    	</p>
+    	<div class="list_area">
+    		<div class="list_title">
+    			<p>{:lang('中奖概率及规则')}</p>
+    			<ul>
+    				<li>1.{:lang('使用锤子对星球进行探索。')}</li>
+    				<li>2.{:lang('星球探索后，将会获得各种礼物，礼物将发放至背包。')}</li>
+    				<li>3.{:lang('不同的星球奖励/价格均不同，越高级的星球奖励越好喔！')}</li>
+    			</ul>
+    		</div>
+    		<table class="list_con">
+				
+				<th>{:lang('奖品')}</th>
+				<th>{:lang('价值')}({$name_coin})</th>
+				<th>{:lang('概率')}</th>
+				<foreach name="list" id="vo">
+					<tr>
+						<td>{$vo['gift_info']['giftname']}</td>
+						<td class="coin">{$vo['total']}</td>
+						<td>{$vo['show_win_prob']}%</td>
+					</tr>
+				</foreach>
+			</table>
+    	</div>
+    </div>
+	
+	
+	<include file="appapi@footer"/>
+	<script type="text/javascript">
+		$(function(){
+			//var height = $(window).height();
+			var height = window.screen.height;
+
+			$(".xqtb").height(height);
+			$(".content").height(height);
+		});
+	</script>
+</body>
+</html>

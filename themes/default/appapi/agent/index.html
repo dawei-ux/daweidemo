@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <include file="appapi@head"/>
+		<title>{:lang('邀请奖励')}</title>
+		<link href='__STATIC__/appapi/css/agent.css?t=1561712954' rel="stylesheet" type="text/css" >
+        <style type="text/css">
+            body{
+                line-height: unset;
+            }
+        </style>
+	</head>
+<body>
+	<div class="home">
+        <div class="{:lang('agent_top_bg')}"></div>
+        <div class="top_code">
+            <div class="{:lang('mycode_title')}">
+                <img src="__STATIC__/appapi/images/agent/{:lang('mycode')}.png">
+            </div>
+            <div class="mycode_bg"></div>
+            <div class="mycode">
+                <span class="code">
+                    <volist name="code_a" id="vo">
+                    <i>{$vo}</i>
+                    </volist>
+                </span>
+                <div class="{:lang('copy')}" data-code="{$code}">
+                    <img src="__STATIC__/appapi/images/agent/{:lang('click_copy')}.png">
+                </div>
+                
+            </div>
+        </div>
+        <div class="top_set">
+    		<div class="top">
+    			<div class="myagent">
+                    <div class="li_l">
+                        <image class="arrow" src="__STATIC__/appapi/images/agent/arrow.png" />
+                        <span class="my_superior_{:lang('img_lang')}"><img src="__STATIC__/appapi/images/agent/{:lang('my_superior')}.png" /></span>
+                    </div> 
+                    
+    				<if condition="$agentinfo">
+                        <span class="li_r">{$agentinfo['user_nickname']}</span>
+                    <else/>
+                        <a class="agent_add" href="/appapi/Agent/agent?uid={$uid}&token={$token}&language={$language_type}">
+                            <span class="li_r {:lang('img_lang')}"><img src="__STATIC__/appapi/images/agent/{:lang('set')}.png" /></span>
+                        </a>
+                    </if>
+
+                    <span class="clearboth"></span>
+    			</div>
+    		</div>
+            <div class="list">
+                <ul>
+                    <li>
+                        <a class="see" href="/appapi/Agent/one?uid={$uid}&token={$token}&language={$language_type}">
+                            <div class="li_l">
+                                <image class="arrow" src="__STATIC__/appapi/images/agent/arrow.png" />
+                                <span class="{:lang('img_lang')}"><img src="__STATIC__/appapi/images/agent/{:lang('sub_gross')}.png" /></span>
+                            </div> 
+                            <div class="li_r color_default">{$agnet_profit['one_profit']}</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        
+		</div>
+		<div class="{:lang('agent_tips')}">
+			{:lang('邀请须知')}：<br>
+            {:lang('每个用户都有自己的邀请码，只要您邀请的用户输入您的邀请码，对方充值时，您将获得一定的分成奖励')}
+		</div>
+        <div class="bottom">
+            <img src="__STATIC__/appapi/images/agent/bottom.png">
+        </div>
+	</div>
+    <include file="appapi@footer"/>
+    <script src="__STATIC__/appapi/js/agent.js"></script>
+</body>
+</html>
